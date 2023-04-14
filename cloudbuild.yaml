@@ -19,10 +19,6 @@ steps:
     id: Deploy plugins
     entrypoint: bash
     args: [ '-c', 'if [ "$BRANCH_NAME" == "dev" ]; then echo "$BRANCH_NAME" && gsutil -m rsync -d -r ./src/plugins gs://${_COMPOSER_BUCKET_DEV}/plugins; elif [ "$BRANCH_NAME" == "hom" ]; then echo "$BRANCH_NAME" && gsutil -m rsync -d -r ./src/plugins gs://${_COMPOSER_BUCKET_HOM}/plugins; else echo "$BRANCH_NAME" && gsutil -m rsync -d -r ./src/plugins gs://${_COMPOSER_BUCKET_PRD}/plugins; fi']
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    id: Deploy pip.conf
-    entrypoint: bash
-    args: [ '-c', 'if [ "$BRANCH_NAME" == "dev" ]; then echo "$BRANCH_NAME" && gsutil cp ./src/config/pip.conf.dev gs://${_COMPOSER_BUCKET_DEV}/config/pip/pip.conf; elif [ "$BRANCH_NAME" == "hom" ]; then echo "$BRANCH_NAME" && gsutil cp ./src/config/pip.conf.hom gs://${_COMPOSER_BUCKET_HOM}/config/pip/pip.conf; else echo "$BRANCH_NAME" && gsutil cp ./src/config/pip.conf.prd gs://${_COMPOSER_BUCKET_PRD}/config/pip/pip.conf; fi']
 substitutions:
   _COMPOSER_BUCKET_DEV: europe-west1-dp-orc-cmp-1-03b31633-bucket
   _COMPOSER_BUCKET_HOM: europe-west1-dp-orc-cmp-1-03b31633-bucket-hom
